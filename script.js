@@ -1,7 +1,6 @@
-
 $(document).ready(function() {
-  const apiRoot = 'https://hidden-mountain-98357.herokuapp.com/v1/';
-  const trelloApiRoot = 'https://hidden-mountain-98357.herokuapp.com/v1/trello/';
+  const apiRoot = 'http://localhost:8080/v1/';
+  const trelloApiRoot = 'http://localhost:8080/v1/trello/';
   const datatableRowTemplate = $('[data-datatable-row-template]').children()[0];
   const $tasksContainer = $('[data-tasks-container]');
 
@@ -106,7 +105,7 @@ $(document).ready(function() {
     });
   }
 
-  function handleTaskDeleteRequest() {
+ function handleTaskDeleteRequest() {
     var parentEl = $(this).parents('[data-task-id]');
     var taskId = parentEl.attr('data-task-id');
     var requestUrl = apiRoot + 'tasks';
@@ -118,7 +117,7 @@ $(document).ready(function() {
         parentEl.slideUp(400, function() { parentEl.remove(); });
       }
     })
-  }
+}
 
   function handleTaskSubmitRequest(event) {
     event.preventDefault();
@@ -138,11 +137,7 @@ $(document).ready(function() {
         title: taskTitle,
         content: taskContent
       }),
-      complete: function(data) {
-        if(data.status === 200) {
-          getAllTasks();
-        }
-      }
+	success: getAllTasks
     });
   }
 
